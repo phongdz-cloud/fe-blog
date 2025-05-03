@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Nav, Button, Dropdown } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   House,
   FileText,
@@ -12,6 +12,7 @@ import {
   PersonCircle,
   BoxArrowRight,
 } from 'react-bootstrap-icons';
+import { logout } from '../../services/authService';
 
 interface AdminSidebarProps {
   onToggle: (collapsed: boolean) => void;
@@ -28,6 +29,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onToggle }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({});
   const location = useLocation();
+  const navigate = useNavigate();
 
   const menuItems: MenuItem[] = [
     { path: '/admin', icon: <House />, label: 'Dashboard' },
@@ -74,6 +76,11 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onToggle }) => {
       ...prev,
       [path]: !prev[path],
     }));
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
   };
 
   const renderMenuItem = (item: MenuItem) => {
@@ -189,7 +196,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onToggle }) => {
                 Profile
               </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item as={Link} to="/logout">
+              <Dropdown.Item onClick={handleLogout}>
                 <BoxArrowRight className="me-2" />
                 Logout
               </Dropdown.Item>
@@ -211,7 +218,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onToggle }) => {
                 Profile
               </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item as={Link} to="/logout">
+              <Dropdown.Item onClick={handleLogout}>
                 <BoxArrowRight className="me-2" />
                 Logout
               </Dropdown.Item>

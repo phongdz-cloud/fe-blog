@@ -2,7 +2,8 @@ import axios from 'axios';
 
 // Create axios instance with default config
 const api = axios.create({
-  baseURL: 'https://jsonplaceholder.typicode.com', // Replace with your API base URL
+  // baseURL: 'https://jsonplaceholder.typicode.com', // Replace with your API base URL
+  baseURL: 'http://localhost:8080/api', // Replace with your API base URL
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -41,7 +42,6 @@ api.interceptors.response.use(
         case 401:
           // Handle unauthorized (e.g., redirect to login)
           localStorage.removeItem('token');
-          window.location.href = '/login';
           break;
         case 403:
           // Handle forbidden
