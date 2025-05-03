@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AdminLayout from './components/layout/AdminLayout';
 import UserLayout from './components/layout/UserLayout';
 import Dashboard from './pages/admin/Dashboard';
+import Posts from './pages/admin/Posts';
 import Home from './pages/user/Home';
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
-          <Route path="posts" element={<div>Posts Management</div>} />
+          <Route path="posts" element={<Posts />} />
           <Route path="users" element={<div>Users Management</div>} />
           <Route path="settings" element={<div>Settings</div>} />
         </Route>

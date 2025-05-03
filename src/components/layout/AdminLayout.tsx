@@ -1,19 +1,33 @@
+import React, { useState } from 'react';
+import { Container } from 'react-bootstrap';
+import AdminSidebar from './AdminSidebar';
 import { Outlet } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap';
-import AdminSidebar from './AdminSidebar.tsx';
 
 const AdminLayout = () => {
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
+  const handleSidebarToggle = (collapsed: boolean) => {
+    setIsSidebarCollapsed(collapsed);
+  };
+
   return (
-    <Container fluid>
-      <Row>
-        <Col md={2} className="bg-dark text-white p-3 min-vh-100">
-          <AdminSidebar />
-        </Col>
-        <Col md={10} className="p-4">
+    <div className="d-flex">
+      <AdminSidebar onToggle={handleSidebarToggle} />
+      <main
+        className="flex-grow-1"
+        style={{
+          marginLeft: isSidebarCollapsed ? '60px' : '250px',
+          transition: 'margin-left 0.3s ease',
+          minHeight: '100vh',
+          backgroundColor: '#f8f9fa',
+          width: `calc(100% - ${isSidebarCollapsed ? '60px' : '250px'})`,
+        }}
+      >
+        <Container fluid className="py-4">
           <Outlet />
-        </Col>
-      </Row>
-    </Container>
+        </Container>
+      </main>
+    </div>
   );
 };
 
